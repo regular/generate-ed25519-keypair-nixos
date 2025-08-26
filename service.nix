@@ -16,12 +16,7 @@ in {
       serviceConfig = {
         Type = "oneshot";
         UMask = "0077";
-        Environment="PATH=${lib.makeBinPath (with pkgs; [
-          coreutils-full
-          systemd
-          self.packages.${pkgs.system}.genkeypair
-        ])}";
-        ExecStart = "${pkgs.bash}/bin/bash -euo pipefail -c 'mkdir -p /etc/encrypted && genkeypair | systemd-creds encrypt --name=session-ed25519 - /etc/encrypted/session-ed25519 '";
+        ExecStart = "${self.packages.${pkgs.system}.default}/bin/generate-keypairs";
       };
 
     };
