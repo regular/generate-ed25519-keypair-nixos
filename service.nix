@@ -42,6 +42,7 @@ in {
         ProtectHome = "yes";
         PrivateTmp = "yes";
         ExecStart = "${self.packages.${pkgs.system}.provider}/bin/provider";
+        Environment=["FOO=bar" "BAR=baz"];
       };
     };
   };
