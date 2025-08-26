@@ -18,6 +18,7 @@ in {
         UMask = "0077";
         Environment="PATH=${lib.makeBinPath (with pkgs; [
           coreutils-full
+          systemd
           self.packages.${pkgs.system}.genkeypair
         ])}";
         ExecStart = "${pkgs.bash}/bin/bash -euo pipefail -c 'genkeypair | systemd-creds encrypt --name=session-ed25519 - /etc/encrypted/session-ed25519 '";
