@@ -17,7 +17,7 @@ in {
         After = ["local-fs.target"];
         UMask = "0077";
         ExecStart = ''
-          PATH=${lib.generateBinPath (with pkgs; [
+          PATH=${lib.makeBinPath (with pkgs; [
             coreutils-full
             self.packages.${pkgs.system}.genkeypair
             bash
