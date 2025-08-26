@@ -19,9 +19,8 @@ in {
         Environment="PATH=${lib.makeBinPath (with pkgs; [
           coreutils-full
           self.packages.${pkgs.system}.genkeypair
-          bash
         ])}";
-        ExecStart = "bash -euo pipefail -c 'genkeypair | systemd-creds encrypt --name=session-ed25519 - /etc/encrypted/session-ed25519 '";
+        ExecStart = "${pkgs.bash}/bin/bash -euo pipefail -c 'genkeypair | systemd-creds encrypt --name=session-ed25519 - /etc/encrypted/session-ed25519 '";
       };
 
     };
