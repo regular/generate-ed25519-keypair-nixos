@@ -40,8 +40,11 @@ in {
           ProtectSystem = "strict";
           ProtectHome = "yes";
           PrivateTmp = "yes";
-          ExecStart = "${self.packages.${pkgs.system}.provider}/bin/provider";
-          Environment=["FOO=bar" "BAR=baz"];
+          LoadCredentialEncrypted = [
+            "machine-key:/etc/encrypted/machine-key"
+            "session-key:/etc/encrypted/session-key"
+          ];
+          ExecStart = "${self.packages.${pkgs.system}.provider}/bin/provider --machine-key %d/machine-key --session-key %d/session-key";
         };
       };
     };

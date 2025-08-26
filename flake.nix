@@ -52,11 +52,11 @@
         set -euo pipefail
         mkdir -p /etc/encrypted
         [ ! -e /etc/encrypted/machine-key-ed25519 ] && genkeypair | \
-          systemd-creds encrypt --name=machine-key-ed25519 - \
-            /etc/encrypted/machine-key-ed25519
+          systemd-creds encrypt --name=machine-key - \
+            /etc/encrypted/machine-key
         genkeypair | \
-          systemd-creds encrypt --name=session-key-ed25519 - \
-            /etc/encrypted/session-key-ed25519
+          systemd-creds encrypt --name=session-key - \
+            /etc/encrypted/session-key
       '';
       provider = pkgs.writeScriptBin "provider" ''
         #!${pkgs.python3}/bin/python3
