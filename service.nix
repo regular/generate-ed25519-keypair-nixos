@@ -21,28 +21,28 @@ in {
         };
 
       };
-    };
-    sockets.keypairs-provider = {
-      wantedBy = [ "sockets.target" ];
-      description = "socket for keypair provider";
-      socketConfig = {
-        ListenStream = "/run/keys.sock";
-        SocketMode = "0600";
-        Service = "keypairs-provider.service";
+      sockets.keypairs-provider = {
+        wantedBy = [ "sockets.target" ];
+        description = "socket for keypair provider";
+        socketConfig = {
+          ListenStream = "/run/keys.sock";
+          SocketMode = "0600";
+          Service = "keypairs-provider.service";
+        };
       };
-    };
-    services.keypairs-provider = {
-      description = "ed25519 keypairs provider";
+      services.keypairs-provider = {
+        description = "ed25519 keypairs provider";
 
-      serviceConfig = {
-        Type = "simple";
-        DynamicUser = "yes";
-        NoNewPrivileges = "yes";
-        ProtectSystem = "strict";
-        ProtectHome = "yes";
-        PrivateTmp = "yes";
-        ExecStart = "${self.packages.${pkgs.system}.provider}/bin/provider";
-        Environment=["FOO=bar" "BAR=baz"];
+        serviceConfig = {
+          Type = "simple";
+          DynamicUser = "yes";
+          NoNewPrivileges = "yes";
+          ProtectSystem = "strict";
+          ProtectHome = "yes";
+          PrivateTmp = "yes";
+          ExecStart = "${self.packages.${pkgs.system}.provider}/bin/provider";
+          Environment=["FOO=bar" "BAR=baz"];
+        };
       };
     };
   };
