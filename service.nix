@@ -21,11 +21,7 @@ in {
           self.packages.${pkgs.system}.genkeypair
           bash
         ])}";
-        ExecStart = "bash -euo pipefail -c '\
-          genkeypair | systemd-creds encrypt \
-            --name=session-ed25519 - \
-            /etc/encrypted/session-ed25519 \
-        '";
+        ExecStart = "bash -euo pipefail -c 'genkeypair | systemd-creds encrypt --name=session-ed25519 - /etc/encrypted/session-ed25519 '";
       };
 
     };
