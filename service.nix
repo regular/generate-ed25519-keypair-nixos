@@ -10,11 +10,11 @@ in {
   config = lib.mkIf cfg.enable {
     systemd.services.generate-ED25519 = {
       description = "Generate ED25519 keypairs service";
-      #ConditionPathExists=!/etc/credstore.encrypted/machine-master-ed25519.cred
+      after = ["local-fs.target"];
+      wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
         Type = "oneshot";
-        After = ["local-fs.target"];
         UMask = "0077";
         Environment="PATH=${lib.makeBinPath (with pkgs; [
           coreutils-full
@@ -28,7 +28,6 @@ in {
         '";
       };
 
-      wantedBy = [ "multi-user.target" ];
     };
   };
 }
