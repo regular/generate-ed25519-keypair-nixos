@@ -1,5 +1,5 @@
 {
-  description = "Generate persistent and non-persistent ED25519 keypairs";
+  description = "Generate persistent and non-persistent (browser session) ED25519 keypairs for tre-kiosk";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -14,7 +14,7 @@
       modules = [
         self.nixosModules.default
         {
-            services.generate-ED25519.enable = true;
+            services.tre-generate-keypairs.enable = true;
         }
       ];
     };
@@ -51,12 +51,12 @@
         ])}
         set -euo pipefail
         mkdir -p /etc/encrypted
-        [ ! -e /etc/encrypted/machine-key ] && genkeypair | \
-          systemd-creds encrypt --name=machine-key - \
-            /etc/encrypted/machine-key
+        [ ! -e /etc/encrypted/tre-machine-key ] && genkeypair | \
+          systemd-creds encrypt --name=tre-machine-key - \
+            /etc/encrypted/tre-machine-key
         genkeypair | \
-          systemd-creds encrypt --name=session-key - \
-            /etc/encrypted/session-key
+          systemd-creds encrypt --name=tre-session-key - \
+            /etc/encrypted/tre-session-key
       '';
       provider = pkgs.writeScriptBin "provider" ''
         #!${pkgs.python3}/bin/python3
