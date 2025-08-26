@@ -17,9 +17,13 @@ in {
         After = ["local-fs.target"];
         UMask = "0077";
         ExecStart = ''
-          cat <<<'EOF' | ${pkgs.stdenv.shell} -euo pipefail
-            ${self.packages.${pkgs.system}.genkeypair}/bin/genkeypair | \
-            systemd-creds encrypt \
+          PATH=${lib.generateBinPath (with pkgs; [
+            coreutils-full
+            self.packages.${pkgs.system}.genkeypair
+            bash
+          ])}
+          cat <<<'EOF' | bash -euo pipefail
+            genkeypair | systemd-creds encrypt \
               --name=session-ed25519 - \
               /etc/encrypted/session-ed25519
           EOF
