@@ -51,7 +51,7 @@
         ])}
         set -euo pipefail
         mkdir -p /etc/encrypted
-        [ ! -e /etc/encrypted/machine-key-ed25519 ] && genkeypair | \
+        [ ! -e /etc/encrypted/machine-key ] && genkeypair | \
           systemd-creds encrypt --name=machine-key - \
             /etc/encrypted/machine-key
         genkeypair | \
