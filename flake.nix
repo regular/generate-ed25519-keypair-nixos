@@ -58,6 +58,10 @@
           systemd-creds encrypt --name=session-key-ed25519 - \
             /etc/encrypted/session-key-ed25519
       '';
+      provider = pkgs.writeScriptBin "provider" ''
+        #!${pkgs.python3}/bin/python3
+        ${builtins.readFile ./provider.py}
+    '';
     };
   };
 }
