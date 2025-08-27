@@ -104,12 +104,13 @@ def readFile(input):
         sys.exit(2)
 
     try:
-        foo_b64 = hex_to_b64(lines[0])
-        bar_b64 = hex_to_b64(lines[1])
+        # in ssb, the private key contains the public key at the end
+        private_b64 = hex_to_b64(lines[0] + lines[1])
+        public_b64 = hex_to_b64(lines[1])
     except ValueError as e:
         print(f"error: {e}", file=sys.stderr)
         sys.exit(3)
-    return [foo_b64, bar_b64]
+    return [private_b64, public_b64]
 
 async def main():
     # Socket activation: take FD 3
