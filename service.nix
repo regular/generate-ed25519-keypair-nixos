@@ -32,6 +32,8 @@ in {
       };
       services.tre-keypairs-provider = {
         description = "ed25519 keypairs provider";
+        after = ["tre-generate-keypairs.service"];
+        requires = ["tre-generate-keypairs.service"];
 
         serviceConfig = {
           Type = "simple";
