@@ -25,12 +25,10 @@ def get_secret(unit_name: str, cred_name: str) -> bytes:
     }, separators=(",", ":"))
 
     browserConfig = json.dumps({
-        "keys": {
-            "curve":"ed25519",
-            "private": sessionKeys[0] + ".ed25519",
-            "public": sessionKeys[1] + ".ed25519",
-            "id": '@' + sessionKeys[1] + ".ed25519",
-        }
+        "curve":"ed25519",
+        "private": sessionKeys[0] + ".ed25519",
+        "public": sessionKeys[1] + ".ed25519",
+        "id": '@' + sessionKeys[1] + ".ed25519",
     }, separators=(",", ":"))
 
     val = None
