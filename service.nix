@@ -16,6 +16,7 @@ in {
 
         serviceConfig = {
           Type = "oneshot";
+          RemainAfterExit = "yes";
           UMask = "0077";
           ExecStart = "${self.packages.${pkgs.system}.default}/bin/generate-keypairs";
         };
